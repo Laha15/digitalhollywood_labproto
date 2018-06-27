@@ -1,0 +1,65 @@
+<!DOCTYPE html><html><head lang=ja><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description><meta name=keywords><title>Lab Proto</title><link rel=stylesheet href=css/style.css><script src=lib/matter.min.js text=text/javascript></script><script text=text/javascript></script></head><body><div class=wrap><div class=container><div id=canvas-container></div></div><div id=contents-wrap><div class=contents><div id=logo><img src=img/logo.png></div><section id=about><h1 class=title><img src=img/about.png></h1><div class=about-txt><p>ミライを切り開く人材を育成するための施設です。</p><p>様々な最新設備を使用することができます。</p></div></section><section id=chara><h1 class=title><img src=img/chara.png></h1><div class=chara-txt><p>誰が生み出したかLab Protoから突然飛びだしたモンスター</p><p>それぞれ機材や道具の扱いにとても詳しくて</p><p>夜な夜なLab Protoに現れては機器のメンテナンスをしてくれる</p></div><div class=chara-img><img class=chara-img src=img/monster_chara.png></div></section><section id=tool><h1 class=title><img src=img/what.png></h1><div class=tool-txt><p>最新の機材を使ってものづくりをすることができます。</p><p>3Dプリンター、UVプリンターなどデジハリ学生なら使い放題！</p><p>さらに、未経験の人でも気軽に参加できるイベントもあります。</p></div><div class=img-area><div class=tool-img1><img src=img/uvprinter.jpg></div><div class=tool-img2><img src=img/3d.jpg></div><div class=footprint><img src=img/footprint.png></div><div class=dog_monster><img src=img/dog_monster.png></div><div class=tool-img3><img src=img/3dprinter.jpg></div></div><a><div class=tool-btn></div></a></section><section id=info><h1 class=title><img src=img/info.png></h1><div class=info-area><div class=map><img src=img/map.png></div><div class=info-txt><div class=work-time><span class=topic-title>作業可能時間</span><p>毎週（月） 10:30~20:00</p><p>毎週（火〜日） 10:00~22:00</p></div><div class=lecture><span class=topic-title>Lab Protoレクチャー日時</span><p>毎週(日・月)15:00~20:00</p><p>事前予約不要、所要時間1時間</p></div></div></div><a><div class=info-btn></div></a></section></div></div><section id=footer><a><div class=footer-btn></div></a><div class=footer-info><div class=sns-link><a><img src=img/Twitter_Social_Icon_Circle_White.png></a> <a><img src=img/flogo-HexRBG-Wht-144.png></a></div><p>@copyright digital hollywood</p></div></section></div><script text=text/javascript>
+(function(){
+  var Engine = Matter.Engine,
+      World = Matter.World,
+      Body = Matter.Body,
+      Bodies = Matter.Bodies,
+      Constraint = Matter.Constraint,
+      Composites = Matter.Composites,
+      Common = Matter.Common,
+      Vertices = Matter.Vertices,
+      MouseConstraint = Matter.MouseConstraint;
+
+      var container = document.getElementById('canvas-container');
+      var engine = Engine.create(container,{
+        render: {
+          options: {
+            wireframes: false,
+            width: 1000,
+            height: 6200,
+            background: 'rgba(0,0,0,0)'
+          }
+        }
+      });
+
+      for(var i=0; i<20; i++){
+      	var rnd = parseInt(Math.random() * 10);
+      	var x = 500 + rnd *10;
+      	var y = 0 - rnd * 120;
+      	var rnd2 = parseInt(Math.random() * 800);
+      	var x2 = rnd2;
+      	var y2 = 0 - rnd2 * 2;
+
+      	var rnd_img = parseInt(Math.random() * 20)+1;
+
+      	World.add(engine.world, [
+      		Bodies.circle(x,y,60,{
+      			density: 0.0004,
+      			frictionAir: 0.1,
+      			restitution: 0.1,
+      			friction: 0.01,
+      			render: {
+      				sprite: {
+      					texture: './img/monster/'+'monster'+rnd_img+'.png'
+      				}
+      			},
+      			timeScale: 1.5
+      		})
+      		]);
+      }
+      // 床を作る
+      World.add(engine.world, [
+        Bodies.rectangle(500, 6210, 1000, 10, { //x,y,w,h
+            isStatic: true, //固定する
+        })
+      ]);
+
+      var mouseEvent = MouseConstraint.create(engine);
+      World.add(engine.world, mouseEvent);
+
+      Engine.run(engine);
+
+      // World.clear(root);
+
+})();
+  </script></body></html>
