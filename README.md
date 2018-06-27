@@ -1,4 +1,2 @@
 # digitalhollywood_labproto
-# digitalhollywood_labproto
-# digitalhollywood_labproto
-# digitalhollywood_labproto
+デジタルハリウッドの課題で制作したサイトです。
